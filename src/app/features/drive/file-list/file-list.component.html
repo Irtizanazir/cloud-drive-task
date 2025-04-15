@@ -169,23 +169,16 @@
       <h2 class="section-title" *ngIf="!(files.length === 0 && folders.length === 0)">Files</h2>
       <!-- Empty Files -->
       <app-empty-drive [isDriveEmpty]="false"
-        *ngIf="!loading && files.length === 0   && (folders.length  || currentFolder) ">
+        *ngIf="!loading && files.length === 0 && (folders.length || currentFolder)">
         <button mat-flat-button color="primary" (click)="uploadFile()">
           <mat-icon>upload_file</mat-icon>
           Add Files
         </button>
       </app-empty-drive>
-      <div *ngIf="files.length > 0" [ngClass]="{'file-grid': viewMode === 'grid', 'file-list': viewMode === 'list'}">
-        <!-- List Header -->
-        <div class="list-header" *ngIf="viewMode === 'list'">
-          <div></div>
-          <div>Name</div>
-          <div>Last Modified</div>
-          <div>Size</div>
-          <div></div>
-        </div>
+
+      <!-- Grid View -->
+      <div *ngIf="files.length > 0 && viewMode === 'grid'" class="file-grid">
         <ng-container *ngFor="let file of displayedFiles">
-          <!-- Grid View -->
           <div class="file-card-container">
             <mat-card class="file-card" (click)="downloadFile(file)"
               (keydown.enter)="downloadFile(file)"
@@ -256,9 +249,20 @@
               </button>
             </mat-menu>
           </div>
+        </ng-container>
+      </div>
 
-          <!-- List View -->
-          <mat-card *ngIf="viewMode === 'list'" class="list-item" (click)="downloadFile(file)"
+      <!-- List View -->
+      <div *ngIf="files.length > 0 && viewMode === 'list'" class="file-list">
+        <div class="list-header">
+          <div></div>
+          <div>Name</div>
+          <div>Last Modified</div>
+          <div>Size</div>
+          <div></div>
+        </div>
+        <ng-container *ngFor="let file of displayedFiles">
+          <mat-card class="list-item" (click)="downloadFile(file)"
             (keydown.enter)="downloadFile(file)"
             (focus)="onItemFocus(folders.length + files.indexOf(file), 'file')"
             [attr.data-item-index]="folders.length + files.indexOf(file)"
@@ -273,10 +277,12 @@
               <div class="item-name">{{file.name}}</div>
               <div class="item-modified">{{file.modifiedDate | date}}</div>
               <div class="item-size">{{file.size | fileSize}}</div>
-              <div class="mb-3">
-                <mat-icon [matMenuTriggerFor]="fileMenu">more_vert</mat-icon>
+              <div class="item-actions">
+                <button mat-icon-button [matMenuTriggerFor]="fileMenu" (click)="$event.stopPropagation()">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
                 <mat-menu #fileMenu="matMenu">
-                  <button mat-menu-item >
+                  <button mat-menu-item>
                     <mat-icon>info</mat-icon>
                     <span>Properties</span>
                   </button>
@@ -299,18 +305,17 @@
                     <span>Share</span>
                   </button>
                   <button mat-menu-item (click)="downloadFile(file)">
-                    <span class="material-symbols-outlined " style=" margin-right: 14px;">
+                    <span class="material-symbols-outlined" style="margin-right: 14px;">
                       download
                     </span>
                     <span class="ml-2">Download</span>
                   </button>
                   <mat-divider></mat-divider>
                   <button mat-menu-item (click)="deleteFile(file)">
-                    <mat-icon style="color:  var(--error-color);">delete</mat-icon>
-                    <span style="color:  var(--error-color);">Delete</span>
+                    <mat-icon style="color: var(--error-color);">delete</mat-icon>
+                    <span style="color: var(--error-color);">Delete</span>
                   </button>
                 </mat-menu>
-
               </div>
             </mat-card-content>
           </mat-card>
