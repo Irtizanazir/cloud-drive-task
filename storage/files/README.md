@@ -1,0 +1,2 @@
+- File storage is in the `storage/` directory
+- Metadata is stored in `db.json`
