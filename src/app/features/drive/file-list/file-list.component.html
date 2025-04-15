@@ -23,7 +23,7 @@
     </div>
     <div class="header-actions">
       <!-- Search -->
-      <div class="search-container" [class.expanded]="isSearchExpanded">
+      <!-- <div class="search-container" [class.expanded]="isSearchExpanded">
         <button mat-icon-button class="search-toggle" (click)="toggleSearch()" matTooltip="Search">
           <mat-icon>search</mat-icon>
         </button>
@@ -34,10 +34,13 @@
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
-      </div>
+      </div> -->
 
       <!-- View Options -->
       <div class="view-options">
+        <button mat-icon-button matTooltip="Search">
+          <mat-icon>search</mat-icon>
+        </button>
         <button mat-icon-button [class.active]="viewMode === 'grid'" (click)="setViewMode('grid')"
           matTooltip="Grid view">
           <mat-icon>grid_view</mat-icon>
@@ -108,14 +111,7 @@
         </div>
         <ng-container *ngFor="let folder of folders">
           <!-- Grid View -->
-          <mat-card *ngIf="viewMode === 'grid'" class="folder-card" (click)="navigateToFolder(folder)"
-            (keydown.enter)="navigateToFolder(folder)"
-            (focus)="onItemFocus(folders.indexOf(folder), 'folder')"
-            [attr.data-item-index]="folders.indexOf(folder)"
-            [attr.aria-label]="'Folder: ' + folder.name"
-            [attr.aria-selected]="focusedItemIndex === folders.indexOf(folder) && focusedItemType === 'folder'"
-            tabindex="0"
-            [class.focused]="focusedItemIndex === folders.indexOf(folder) && focusedItemType === 'folder'">
+          <mat-card *ngIf="viewMode === 'grid'" class="folder-card" (click)="navigateToFolder(folder)">
             <mat-card-content>
               <div class="folder-icon">
                 <span class="material-symbols-outlined">folder</span>
@@ -132,14 +128,7 @@
           </mat-card>
 
           <!-- List View -->
-          <mat-card *ngIf="viewMode === 'list'" class="list-item" (click)="navigateToFolder(folder)"
-            (keydown.enter)="navigateToFolder(folder)"
-            (focus)="onItemFocus(folders.indexOf(folder), 'folder')"
-            [attr.data-item-index]="folders.indexOf(folder)"
-            [attr.aria-label]="'Folder: ' + folder.name"
-            [attr.aria-selected]="focusedItemIndex === folders.indexOf(folder) && focusedItemType === 'folder'"
-            tabindex="0"
-            [class.focused]="focusedItemIndex === folders.indexOf(folder) && focusedItemType === 'folder'">
+          <mat-card *ngIf="viewMode === 'list'" class="list-item" (click)="navigateToFolder(folder)">
             <mat-card-content>
               <div class="item-icon">
                 <mat-icon>folder</mat-icon>
@@ -169,92 +158,15 @@
       <h2 class="section-title" *ngIf="!(files.length === 0 && folders.length === 0)">Files</h2>
       <!-- Empty Files -->
       <app-empty-drive [isDriveEmpty]="false"
-        *ngIf="!loading && files.length === 0 && (folders.length || currentFolder)">
+        *ngIf="!loading && files.length === 0   && (folders.length  || currentFolder) ">
         <button mat-flat-button color="primary" (click)="uploadFile()">
           <mat-icon>upload_file</mat-icon>
           Add Files
         </button>
       </app-empty-drive>
-
-      <!-- Grid View -->
-      <div *ngIf="files.length > 0 && viewMode === 'grid'" class="file-grid">
-        <ng-container *ngFor="let file of displayedFiles">
-          <div class="file-card-container">
-            <mat-card class="file-card" (click)="downloadFile(file)"
-              (keydown.enter)="downloadFile(file)"
-              (focus)="onItemFocus(folders.length + files.indexOf(file), 'file')"
-              [attr.data-item-index]="folders.length + files.indexOf(file)"
-              [attr.aria-label]="'File: ' + file.name"
-              [attr.aria-selected]="focusedItemIndex === folders.length + files.indexOf(file) && focusedItemType === 'file'"
-              tabindex="0"
-              [class.focused]="focusedItemIndex === folders.length + files.indexOf(file) && focusedItemType === 'file'">
-              <mat-card-content>
-                <div class="file-preview" [ngClass]="file.type">
-                  <ng-container *ngIf="file.type.includes('image'); else fileIcon">
-                    <img [src]="file.path ? apiUrl + file.path : ''" [alt]="file.name">
-                  </ng-container>
-                  <ng-template #fileIcon>
-                    <mat-icon>{{getFileIcon(file)}}</mat-icon>
-                  </ng-template>
-                </div>
-                <div class="file-info">
-                  <h3>{{file.name | slice:0:25}} <span *ngIf="file.name.length > 25">...</span></h3>
-                  <p class="metadata">
-                    {{file.size | fileSize}}
-                    <span class="separator">|</span>
-                    {{file.modifiedDate | date}}
-                  </p>
-                  <div class="tags" *ngIf="file.tags?.length">
-                    <span class="tag" *ngFor="let tag of file.tags">{{tag}}</span>
-                  </div>
-                </div>
-              </mat-card-content>
-            </mat-card>
-            <button class="file-action-meta" mat-icon-button [matMenuTriggerFor]="fileMenu" (click)="$event.stopPropagation()">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #fileMenu="matMenu">
-              <button mat-menu-item (click)="shareFile(file)">
-                <mat-icon>info</mat-icon>
-                <span>Properties</span>
-              </button>
-              <mat-divider></mat-divider>
-              <button mat-menu-item (click)="updateFileMetaData(file)">
-                <mat-icon>edit</mat-icon>
-                <span>Rename</span>
-              </button>
-              <button mat-menu-item>
-                <mat-icon>drive_file_move</mat-icon>
-                <span>Move</span>
-              </button>
-              <mat-divider></mat-divider>
-              <button mat-menu-item (click)="downloadFile(file)">
-                <mat-icon>link</mat-icon>
-                <span>Copy link</span>
-              </button>
-              <button mat-menu-item (click)="shareFile(file)">
-                <mat-icon>people_outline</mat-icon>
-                <span>Share</span>
-              </button>
-              <button mat-menu-item (click)="downloadFile(file)">
-                <span class="material-symbols-outlined" style="margin-right: 14px;">
-                  download
-                </span>
-                <span>Download</span>
-              </button>
-              <mat-divider></mat-divider>
-              <button mat-menu-item (click)="deleteFile(file)">
-                <mat-icon style="color: var(--error-color);">delete</mat-icon>
-                <span style="color: var(--error-color);">Delete</span>
-              </button>
-            </mat-menu>
-          </div>
-        </ng-container>
-      </div>
-
-      <!-- List View -->
-      <div *ngIf="files.length > 0 && viewMode === 'list'" class="file-list">
-        <div class="list-header">
+      <div *ngIf="files.length > 0" [ngClass]="{'file-grid': viewMode === 'grid', 'file-list': viewMode === 'list'}">
+        <!-- List Header -->
+        <div class="list-header" *ngIf="viewMode === 'list'">
           <div></div>
           <div>Name</div>
           <div>Last Modified</div>
@@ -262,14 +174,107 @@
           <div></div>
         </div>
         <ng-container *ngFor="let file of displayedFiles">
-          <mat-card class="list-item" (click)="downloadFile(file)"
-            (keydown.enter)="downloadFile(file)"
-            (focus)="onItemFocus(folders.length + files.indexOf(file), 'file')"
-            [attr.data-item-index]="folders.length + files.indexOf(file)"
-            [attr.aria-label]="'File: ' + file.name"
-            [attr.aria-selected]="focusedItemIndex === folders.length + files.indexOf(file) && focusedItemType === 'file'"
-            tabindex="0"
-            [class.focused]="focusedItemIndex === folders.length + files.indexOf(file) && focusedItemType === 'file'">
+          <!-- Grid View -->
+          <mat-card *ngIf="viewMode === 'grid'" class="file-card">
+            <mat-card-content>
+              <!-- <div class="file-preview" [ngClass]="file.type">
+                <mat-icon>{{getFileIcon(file)}}</mat-icon>
+              </div>
+              <div class="file-info">
+                <h3>{{file.name}}</h3>
+                <p class="metadata">
+                  {{file.size | fileSize}}
+                  <span class="separator">•</span>
+                  Last modified {{file.modifiedDate | date}}
+                </p>
+                <div class="tags" *ngIf="file.tags?.length">
+                  <span class="tag" *ngFor="let tag of file.tags">{{tag}}</span>
+                </div>
+              </div>
+              <div class="file-actions">
+                <button mat-icon-button [matMenuTriggerFor]="fileMenu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #fileMenu="matMenu">
+                  <button mat-menu-item (click)="downloadFile(file)">
+                    <mat-icon>download</mat-icon>
+                    <span>Download</span>
+                  </button>
+                  <button mat-menu-item (click)="shareFile(file)">
+                    <mat-icon>share</mat-icon>
+                    <span>Share</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteFile(file)" class="delete-action">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                  </button>
+                </mat-menu>
+              </div> -->
+              <div class="file-preview" [ngClass]="file.type">
+                <ng-container *ngIf="file.type.includes('image'); else fileIcon">
+                  <img [src]="file.path ? apiUrl + file.path : ''" [alt]="file.name">
+                </ng-container>
+                <ng-template #fileIcon>
+                  <mat-icon>{{getFileIcon(file)}}</mat-icon>
+                </ng-template>
+              </div>
+              <div class="file-info">
+                <h3>{{file.name | slice:0:25}} <span *ngIf="file.name.length > 25">...</span></h3>
+                <p class="metadata">
+                  {{file.size | fileSize}}
+                  <span class="separator">|</span>
+                  {{file.modifiedDate | date}}
+                </p>
+                <div class="tags" *ngIf="file.tags?.length">
+                  <span class="tag" *ngFor="let tag of file.tags">{{tag}}</span>
+                </div>
+              </div>
+              <div>
+                <button class="file-action-meta" mat-icon-button [matMenuTriggerFor]="fileMenu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #fileMenu="matMenu">
+                  <button mat-menu-item (click)="shareFile(file)">
+                    <mat-icon>info</mat-icon>
+                    <span>Properties</span>
+                  </button>
+                  <mat-divider></mat-divider>
+                  <button mat-menu-item (click)="updateFileMetaData(file)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Rename</span>
+                  </button>
+                  <button mat-menu-item>
+                    <mat-icon>drive_file_move</mat-icon>
+                    <span>Move</span>
+                  </button>
+                  <mat-divider></mat-divider>
+                  <button mat-menu-item (click)="downloadFile(file)">
+                    <mat-icon>link</mat-icon>
+                    <span>Copy link</span>
+                  </button>
+                  <button mat-menu-item (click)="shareFile(file)">
+                    <mat-icon>people_outline</mat-icon>
+                    <span>Share</span>
+                  </button>
+                  <button mat-menu-item (click)="downloadFile(file)">
+                    <span class="material-symbols-outlined"  style=" margin-right: 14px;">
+                      download
+                    </span>
+                    <span>Download</span>
+                  </button>
+                  <mat-divider></mat-divider>
+                  <button mat-menu-item (click)="deleteFile(file)">
+                    <mat-icon style="color:  var(--error-color);">delete</mat-icon>
+                    <span style="color:  var(--error-color);">Delete</span>
+                  </button>
+                </mat-menu>
+
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- List View -->
+          <mat-card *ngIf="viewMode === 'list'" class="list-item">
             <mat-card-content>
               <div class="item-icon" [ngClass]="file.type">
                 <mat-icon>{{getFileIcon(file)}}</mat-icon>
@@ -277,12 +282,10 @@
               <div class="item-name">{{file.name}}</div>
               <div class="item-modified">{{file.modifiedDate | date}}</div>
               <div class="item-size">{{file.size | fileSize}}</div>
-              <div class="item-actions">
-                <button mat-icon-button [matMenuTriggerFor]="fileMenu" (click)="$event.stopPropagation()">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
+              <div class="mb-3">
+                <mat-icon [matMenuTriggerFor]="fileMenu">more_vert</mat-icon>
                 <mat-menu #fileMenu="matMenu">
-                  <button mat-menu-item>
+                  <button mat-menu-item >
                     <mat-icon>info</mat-icon>
                     <span>Properties</span>
                   </button>
@@ -305,17 +308,18 @@
                     <span>Share</span>
                   </button>
                   <button mat-menu-item (click)="downloadFile(file)">
-                    <span class="material-symbols-outlined" style="margin-right: 14px;">
+                    <span class="material-symbols-outlined " style=" margin-right: 14px;">
                       download
                     </span>
                     <span class="ml-2">Download</span>
                   </button>
                   <mat-divider></mat-divider>
                   <button mat-menu-item (click)="deleteFile(file)">
-                    <mat-icon style="color: var(--error-color);">delete</mat-icon>
-                    <span style="color: var(--error-color);">Delete</span>
+                    <mat-icon style="color:  var(--error-color);">delete</mat-icon>
+                    <span style="color:  var(--error-color);">Delete</span>
                   </button>
                 </mat-menu>
+
               </div>
             </mat-card-content>
           </mat-card>

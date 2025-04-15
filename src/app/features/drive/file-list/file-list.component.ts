@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
@@ -39,10 +39,6 @@ export class FileListComponent implements OnInit {
   pageSizeOptions = [5, 10, 25];
   currentPage = 0;
   displayedFiles: FileModel[] = [];
-
-  // Focus management properties
-  focusedItemIndex = -1;
-  focusedItemType: 'folder' | 'file' | null = null;
 
   constructor(
     private fileService: FileService,
@@ -173,41 +169,26 @@ export class FileListComponent implements OnInit {
     }
   }
 
-  // Search functionality
-  toggleSearch(): void {
-    this.isSearchExpanded = !this.isSearchExpanded;
-    if (this.isSearchExpanded) {
-      setTimeout(() => {
-        this.searchInput.nativeElement.focus();
-      });
-    } else {
-      this.searchQuery = '';
-      this.loadCurrentFolder();
-    }
-  }
-
-  clearSearch(): void {
-    this.searchQuery = '';
-    this.loadCurrentFolder();
-  }
-
-  applyFilter(): void {
-    const filterValue = this.searchQuery.toLowerCase().trim();
+  // applyFilter(): void {
+  //   const filterValue = this.searchQuery.toLowerCase().trim();
     
-    if (!filterValue) {
-      this.loadCurrentFolder();
-      return;
-    }
+  //   if (!filterValue) {
+  //     this.loadCurrentFolder();
+  //     return;
+  //   }
 
-    const allItems = [...this.folders, ...this.files];
-    const filteredItems = allItems.filter(item => 
-      item.name.toLowerCase().includes(filterValue)
-    );
+  //   const allItems = [...this.folders, ...this.files];
+  //   const filteredItems = allItems.filter(item => 
+  //     item.name.toLowerCase().includes(filterValue)
+  //   );
 
-    this.folders = filteredItems.filter(item => item.type.includes('folder'));
-    this.files = filteredItems.filter(item => !item.type.includes('folder'));
-    this.updateDisplayedFiles();
-  }
+  //   this.folders = filteredItems.filter(item => item.type.includes('folder'));
+  //   this.files = filteredItems.filter(item => !item.type.includes('folder'));
+  // }
+
+  // private convertFileListToArray(fileList: FileList | null): File[] {
+  //   return fileList ? Array.from(fileList) : [];
+  // }
 
   uploadFile(): void {
     const dialogRef = this.dialog.open(FilesUploadDialogComponent, {
@@ -442,6 +423,43 @@ export class FileListComponent implements OnInit {
     }
   }
 
+  // toggleSearch(): void {
+  //   this.isSearchExpanded = !this.isSearchExpanded;
+  //   if (this.isSearchExpanded) {
+  //     setTimeout(() => {
+  //       this.searchInput.nativeElement.focus();
+  //     });
+  //   } else {
+  //     this.searchQuery = '';
+  //     this.loadCurrentFolder();
+  //   }
+  // }
+
+  // clearSearch(): void {
+  //   this.searchQuery = '';
+  //   this.loadCurrentFolder();
+  // }
+
+  // onFileSelected(event: Event): void {
+  //   const input = event.target as HTMLInputElement;
+  //   if (input.files && input.files.length > 0) {
+  //     const files = Array.from(input.files);
+  //     this.handleFileUpload(files);
+  //     if (input) {
+  //       input.value = '';
+  //     }
+  //   }
+  // }
+
+  // onFolderSelected(event: Event): void {
+  //   const input = event.target as HTMLInputElement;
+  //   if (input.files && input.files.length > 0) {
+  //     const files = Array.from(input.files);
+  //     this.handleFileUpload(files);
+  //   }
+  // }
+
+
   onPageChange(event: PageEvent): void {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
@@ -452,74 +470,5 @@ export class FileListComponent implements OnInit {
     const start = this.currentPage * this.pageSize;
     const end = start + this.pageSize;
     this.displayedFiles = this.files.slice(start, end);
-  }
-
-  // Focus management methods
-  onItemFocus(index: number, type: 'folder' | 'file') {
-    this.focusedItemIndex = index;
-    this.focusedItemType = type;
-  }
-
-  private updateFocusedItem() {
-    const items = [...this.folders, ...this.files];
-    if (this.focusedItemIndex >= 0 && this.focusedItemIndex < items.length) {
-      const item = items[this.focusedItemIndex];
-      this.focusedItemType = item.type.includes('folder') ? 'folder' : 'file';
-      
-      // Scroll the focused item into view
-      setTimeout(() => {
-        const element = document.querySelector(`[data-item-index="${this.focusedItemIndex}"]`);
-        if (element) {
-          element.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-          (element as HTMLElement).focus();
-        }
-      });
-    }
-  }
-
-  @HostListener('keydown', ['$event'])
-  handleKeyboardNavigation(event: KeyboardEvent) {
-    const items = [...this.folders, ...this.files];
-    if (items.length === 0) return;
-
-    switch (event.key) {
-      case 'ArrowDown':
-        event.preventDefault();
-        this.focusedItemIndex = Math.min(this.focusedItemIndex + 1, items.length - 1);
-        this.updateFocusedItem();
-        break;
-      case 'ArrowUp':
-        event.preventDefault();
-        this.focusedItemIndex = Math.max(this.focusedItemIndex - 1, 0);
-        this.updateFocusedItem();
-        break;
-      case 'ArrowRight':
-        event.preventDefault();
-        if (this.viewMode === 'grid') {
-          const itemsPerRow = Math.floor(document.querySelector('.grid-view')?.clientWidth! / 200) || 1;
-          this.focusedItemIndex = Math.min(this.focusedItemIndex + itemsPerRow, items.length - 1);
-          this.updateFocusedItem();
-        }
-        break;
-      case 'ArrowLeft':
-        event.preventDefault();
-        if (this.viewMode === 'grid') {
-          const itemsPerRow = Math.floor(document.querySelector('.grid-view')?.clientWidth! / 200) || 1;
-          this.focusedItemIndex = Math.max(this.focusedItemIndex - itemsPerRow, 0);
-          this.updateFocusedItem();
-        }
-        break;
-      case 'Enter':
-        event.preventDefault();
-        if (this.focusedItemIndex >= 0 && this.focusedItemIndex < items.length) {
-          const item = items[this.focusedItemIndex];
-          if (item.type.includes('folder')) {
-            this.navigateToFolder(item);
-          } else {
-            this.downloadFile(item);
-          }
-        }
-        break;
-    }
   }
 }

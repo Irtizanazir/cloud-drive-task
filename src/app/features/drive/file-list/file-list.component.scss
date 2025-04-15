@@ -73,68 +73,68 @@
       align-items: center;
       gap: 16px;
 
-      .search-container {
-        position: relative;
-        display: flex;
-        align-items: center;
-        transition: width 0.3s ease;
-        width: 48px;
-        overflow: hidden;
+      // .search-container {
+      //   position: relative;
+      //   display: flex;
+      //   align-items: center;
+      //   transition: width 0.3s ease;
+      //   width: 48px;
+      //   overflow: hidden;
 
-        &.expanded {
-          width: 300px;
+      //   &.expanded {
+      //     width: 300px;
 
-          .search-toggle {
-            background-color: var(--background-hover);
-          }
-        }
+      //     .search-toggle {
+      //       background-color: var(--background-hover);
+      //     }
+      //   }
 
-        .search-toggle {
-          position: absolute;
-          left: 0;
-          z-index: 2;
-          color: var(--text-secondary);
-          background-color: transparent;
+      //   .search-toggle {
+      //     position: absolute;
+      //     left: 0;
+      //     z-index: 2;
+      //     color: var(--text-secondary);
+      //     background-color: transparent;
 
-          &:hover {
-            background-color: var(--background-hover);
-          }
+      //     &:hover {
+      //       background-color: var(--background-hover);
+      //     }
 
-          mat-icon {
-            font-size: 24px;
-            width: 24px;
-            height: 24px;
-          }
-        }
+      //     mat-icon {
+      //       font-size: 24px;
+      //       width: 24px;
+      //       height: 24px;
+      //     }
+      //   }
 
-        .search-field {
-          width: 300px;
-          margin: 0;
-          margin-left: -8px;
+      //   .search-field {
+      //     width: 300px;
+      //     margin: 0;
+      //     margin-left: -8px;
 
-          ::ng-deep .mat-mdc-form-field-wrapper {
-            padding-bottom: 0;
-          }
+      //     ::ng-deep .mat-mdc-form-field-wrapper {
+      //       padding-bottom: 0;
+      //     }
 
-          ::ng-deep .mat-mdc-text-field-wrapper {
-            background-color: white;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-          }
+      //     ::ng-deep .mat-mdc-text-field-wrapper {
+      //       background-color: white;
+      //       border-radius: 8px;
+      //       border: 1px solid var(--border-color);
+      //     }
 
-          ::ng-deep .mat-mdc-form-field-flex {
-            padding: 0 16px 0 56px;
-          }
+      //     ::ng-deep .mat-mdc-form-field-flex {
+      //       padding: 0 16px 0 56px;
+      //     }
 
-          input {
-            height: 48px;
-          }
+      //     input {
+      //       height: 48px;
+      //     }
 
-          button {
-            color: var(--text-secondary);
-          }
-        }
-      }
+      //     button {
+      //       color: var(--text-secondary);
+      //     }
+      //   }
+      // }
 
       .view-options {
         display: flex;
@@ -697,103 +697,22 @@
     object-fit: cover;
   }
 }
-
-.file-card-container {
-  position: relative;
-  display: inline-block;
-  width: 350px;
-  height: 263px;
-  margin: 0;
-  padding: 0;
-}
-
-.file-action-meta {
+.file-action-meta{
   position: absolute;
   bottom: 41px;
   right: 14px;
   background: #F2F3F3 !important;
-  height: 45px !important;
+  height:45px !important;
   width: 45px !important;
   text-align: center !important;
   padding: 11px !important;
   opacity: 0;
   color: white;
   border-radius: 50% !important;
-  z-index: 2;
-  
-  &:hover {
-    opacity: 1;
+  &:hover{
+  opacity:1
   }
-  
   mat-icon {
     margin-right: 8px;
   }
-}
-
-.file-card {
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  border: 1px solid #E5E6E7;
-  padding: 0;
-  overflow: hidden;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    
-    + .file-action-meta {
-      opacity: 1;
-    }
-  }
-}
-
-// Focus management styles
-.folder-card, .file-card, .list-item {
-  &:focus {
-    outline: 2px solid #2196F3;
-    outline-offset: 2px;
-  }
-
-  &.focused {
-    background-color: rgba(33, 150, 243, 0.1);
-    border: 2px solid #2196F3;
-  }
-}
-
-// High contrast mode support
-@media (forced-colors: active) {
-  .folder-card, .file-card, .list-item {
-    &:focus {
-      outline: 2px solid CanvasText;
-    }
-
-    &.focused {
-      border: 2px solid CanvasText;
-    }
-  }
-}
-
-// Hidden input styles for accessibility
-.hidden-input {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  margin: -1px !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  border: 0 !important;
-}
-
-// Focus trap styles
-.focus-trap {
-  position: absolute;
-  width: 0;
-  height: 0;
-  opacity: 0;
-  pointer-events: none;
 }
