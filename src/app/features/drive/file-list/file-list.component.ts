@@ -146,11 +146,12 @@ export class FileListComponent implements OnInit {
       this.sortDirection = 'asc';
     }
     
-    const allItems = [...this.folders, ...this.files];
-    allItems.sort((a, b) => this.compareItems(a, b));
-
-    this.folders = allItems.filter(item => item.type.includes('folder'));
-    this.files = allItems.filter(item => !item.type.includes('folder'));
+    // Sort folders and files separately
+    this.folders.sort((a, b) => this.compareItems(a, b));
+    this.files.sort((a, b) => this.compareItems(a, b));
+    
+    // Reset to first page when sorting
+    this.currentPage = 0;
     this.updateDisplayedFiles();
   }
 
@@ -159,7 +160,9 @@ export class FileListComponent implements OnInit {
     
     switch (this.sortField) {
       case 'name':
-        return direction * a.name.localeCompare(b.name);
+        const nameA = a.name || '';
+        const nameB = b.name || '';
+        return direction * nameA.toString().localeCompare(nameB.toString());
       case 'modifiedDate':
         return direction * (new Date(a.modifiedDate).getTime() - new Date(b.modifiedDate).getTime());
       case 'size':

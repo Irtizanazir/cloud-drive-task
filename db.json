@@ -15,7 +15,9 @@
       "type": "folder",
       "size": 0,
       "createdAt": "2025-04-09T16:23:41.190Z",
-      "updatedAt": "2025-04-09T16:23:41.190Z"
+      "updatedAt": "2025-04-09T16:23:41.190Z",
+      "files": 4,
+      "modifiedDate": "2025-04-15T06:34:36.585Z"
     },
     {
       "id": "ro8zklzfmm9b0mjvu",
@@ -180,6 +182,173 @@
       "createdAt": "2025-04-14T08:16:44.400Z",
       "updatedAt": "2025-04-14T08:16:44.400Z",
       "modifiedDate": "2025-04-14T08:16:44.400Z"
+    },
+    {
+      "id": "m9i30mx872xzstessyd",
+      "name": "BISMA.pdf",
+      "type": "application/pdf",
+      "size": 232837,
+      "path": "/content/m9i30mx872xzstessyd.pdf",
+      "createdAt": "2025-04-15T05:48:30.867Z",
+      "updatedAt": "2025-04-15T05:51:29.997Z",
+      "modifiedDate": "2025-04-15T05:51:29.997Z",
+      "tags": [
+        "tag"
+      ]
+    },
+    {
+      "id": "m9i350ql4zqzsh85kep",
+      "name": "undertaking studio.pdf",
+      "type": "application/pdf",
+      "size": 426128,
+      "path": "/content/m9i350ql4zqzsh85kep.pdf",
+      "parentId": "7ywvl4ujmz8m9a52d1i",
+      "createdAt": "2025-04-15T05:51:55.393Z",
+      "updatedAt": "2025-04-15T05:51:55.393Z",
+      "modifiedDate": "2025-04-15T05:51:55.393Z"
+    },
+    {
+      "id": "m9i35jbwpie0d403wt",
+      "name": "undertaking studio.pdf",
+      "type": "application/pdf",
+      "size": 426128,
+      "path": "/content/m9i35jbwpie0d403wt.pdf",
+      "createdAt": "2025-04-15T05:52:19.489Z",
+      "updatedAt": "2025-04-15T05:52:19.489Z",
+      "modifiedDate": "2025-04-15T05:52:19.489Z"
+    },
+    {
+      "id": "m9i443omefbv3u7lqsi",
+      "name": "tree-736885_960_720 (1).jpg",
+      "type": "image/jpeg",
+      "size": 116655,
+      "path": "/content/m9i443omefbv3u7lqsi.jpg",
+      "createdAt": "2025-04-15T06:19:12.168Z",
+      "updatedAt": "2025-04-15T06:19:12.168Z",
+      "modifiedDate": "2025-04-15T06:19:12.168Z"
+    },
+    {
+      "id": "m9i4edbngi23dcgm6ss",
+      "name": "WhatsApp Image 2023-11-18 at 7.28.32 PM.jpeg",
+      "type": "image/jpeg",
+      "size": 38937,
+      "path": "/content/m9i4edbngi23dcgm6ss.jpeg",
+      "createdAt": "2025-04-15T06:27:11.226Z",
+      "updatedAt": "2025-04-15T06:27:11.226Z",
+      "modifiedDate": "2025-04-15T06:27:11.226Z"
+    },
+    {
+      "id": "m9i4edbsw7h7crtqht",
+      "name": "photo.jpeg",
+      "type": "image/jpeg",
+      "size": 114003,
+      "path": "/content/m9i4edbsw7h7crtqht.jpeg",
+      "createdAt": "2025-04-15T06:27:11.228Z",
+      "updatedAt": "2025-04-15T06:27:11.228Z",
+      "modifiedDate": "2025-04-15T06:27:11.228Z"
+    },
+    {
+      "id": "m9i4edbl88slfwlgq1c",
+      "name": "faizan.jpg",
+      "type": "image/jpeg",
+      "size": 167190,
+      "path": "/content/m9i4edbl88slfwlgq1c.jpg",
+      "createdAt": "2025-04-15T06:27:11.229Z",
+      "updatedAt": "2025-04-15T06:27:11.230Z",
+      "modifiedDate": "2025-04-15T06:27:11.230Z"
+    },
+    {
+      "id": "m9i4edbozjhymbhuttc",
+      "name": "pic-min.jpeg",
+      "type": "image/jpeg",
+      "size": 139860,
+      "path": "/content/m9i4edbozjhymbhuttc.jpeg",
+      "createdAt": "2025-04-15T06:27:11.231Z",
+      "updatedAt": "2025-04-15T06:27:11.231Z",
+      "modifiedDate": "2025-04-15T06:27:11.231Z"
+    },
+    {
+      "id": "m9i4edc292vvupf09m",
+      "name": "WhatsApp Image 2023-10-13 at 3.34.09 PM (1).jpeg",
+      "type": "image/jpeg",
+      "size": 95111,
+      "path": "/content/m9i4edc292vvupf09m.jpeg",
+      "createdAt": "2025-04-15T06:27:11.241Z",
+      "updatedAt": "2025-04-15T06:27:11.241Z",
+      "modifiedDate": "2025-04-15T06:27:11.241Z"
+    },
+    {
+      "id": "m9i4edc6v1tb8hbb4c",
+      "name": "YouTube.png",
+      "type": "image/png",
+      "size": 523,
+      "path": "/content/m9i4edc6v1tb8hbb4c.png",
+      "createdAt": "2025-04-15T06:27:11.244Z",
+      "updatedAt": "2025-04-15T06:27:11.244Z",
+      "modifiedDate": "2025-04-15T06:27:11.244Z"
+    },
+    {
+      "id": "m9i4edc7tuais2zje9",
+      "name": "docklands-campus-accommodation-hero-hp-1920-x-1080.jpg",
+      "type": "image/jpeg",
+      "size": 162219,
+      "path": "/content/m9i4edc7tuais2zje9.jpg",
+      "createdAt": "2025-04-15T06:27:11.247Z",
+      "updatedAt": "2025-04-15T06:27:11.247Z",
+      "modifiedDate": "2025-04-15T06:27:11.247Z"
+    },
+    {
+      "id": "m9i4edbjcbhurv7tckp",
+      "name": "faizlg.jpg",
+      "type": "image/jpeg",
+      "size": 618377,
+      "path": "/content/m9i4edbjcbhurv7tckp.jpg",
+      "createdAt": "2025-04-15T06:27:11.249Z",
+      "updatedAt": "2025-04-15T06:27:11.249Z",
+      "modifiedDate": "2025-04-15T06:27:11.249Z"
+    },
+    {
+      "id": "m9i4edbqj9oakc29xc",
+      "name": "pic.jpeg",
+      "type": "image/jpeg",
+      "size": 699321,
+      "path": "/content/m9i4edbqj9oakc29xc.jpeg",
+      "createdAt": "2025-04-15T06:27:11.250Z",
+      "updatedAt": "2025-04-15T06:27:11.250Z",
+      "modifiedDate": "2025-04-15T06:27:11.250Z"
+    },
+    {
+      "id": "m9i4nwyqils0zj7wpe",
+      "name": "Hadith.pdf",
+      "type": "application/pdf",
+      "size": 27,
+      "path": "/content/m9i4nwyqils0zj7wpe.pdf",
+      "parentId": "7ywvl4ujmz8m9a52d1i",
+      "createdAt": "2025-04-15T06:34:36.580Z",
+      "updatedAt": "2025-04-15T06:34:36.580Z",
+      "modifiedDate": "2025-04-15T06:34:36.580Z"
+    },
+    {
+      "id": "m9i4nwyqkt5is2phusj",
+      "name": "deletedialogicon.svg",
+      "type": "image/svg+xml",
+      "size": 1808,
+      "path": "/content/m9i4nwyqkt5is2phusj.svg",
+      "parentId": "7ywvl4ujmz8m9a52d1i",
+      "createdAt": "2025-04-15T06:34:36.582Z",
+      "updatedAt": "2025-04-15T06:34:36.582Z",
+      "modifiedDate": "2025-04-15T06:34:36.582Z"
+    },
+    {
+      "id": "m9i4nwyq2ky19k70f2z",
+      "name": "Group.svg",
+      "type": "image/svg+xml",
+      "size": 27,
+      "path": "/content/m9i4nwyq2ky19k70f2z.svg",
+      "parentId": "7ywvl4ujmz8m9a52d1i",
+      "createdAt": "2025-04-15T06:34:36.585Z",
+      "updatedAt": "2025-04-15T06:34:36.585Z",
+      "modifiedDate": "2025-04-15T06:34:36.585Z"
     }
   ],
   "trash": [
