@@ -236,7 +236,7 @@
               <div class="item-name">{{file.name}}</div>
               <div class="item-modified">{{file.modifiedDate | date}}</div>
               <div class="item-size">{{file.size | fileSize}}</div>
-              <div class="mb-3">
+              <div >
                 <mat-icon [matMenuTriggerFor]="fileMenu">more_vert</mat-icon>
                 <mat-menu #fileMenu="matMenu">
                   <button mat-menu-item >
