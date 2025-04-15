@@ -1,0 +1,6 @@
+<div  class="empty-state">
+    <img [src]="isDriveEmpty ? '/assets/images/empty-drive.svg' : '/assets/icons/empty-folder.svg'">
+    <h3>No files in your  {{isDriveEmpty ? 'storage' : 'folder' }} yet</h3>
+    <p>Drag and drop your files or click in the bottom to upload files in the storage</p>
+    <ng-content></ng-content>
+  </div>

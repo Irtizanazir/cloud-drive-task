@@ -1,0 +1,184 @@
+.app-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    background: #161F22;
+    color: white;
+    padding: 0 24px;
+    height: 64px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .header-left {
+      .app-name {
+        font-size: 20px;
+        font-weight: 500;
+      }
+    }
+
+    .spacer {
+      flex: 1;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: baseline;
+      
+
+      button {
+        // color: var(--text-secondary);
+
+        mat-icon {
+          color: rgba(245, 245, 245, 0.788);
+          // color: var(--text-secondary);
+          font-size: 20px;
+          width: 24px;
+          height: 24px;
+        }
+      }
+
+      .user-avatar {
+        mat-icon {
+          font-size: 32px;
+          width: 32px;
+          height: 32px;
+        }
+      }
+
+      ::ng-deep .mat-badge-content {
+        background-color: #ff4081;
+        color: white;
+      }
+    }
+  }
+
+  mat-sidenav-container {
+    flex: 1;
+    width: 100%;
+
+    mat-sidenav {
+      width: 280px;
+      background-color: white;
+      border-right: 1px solid #e0e0e0;
+
+      .sidebar-header {
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-bottom: 1px solid #e0e0e0;
+        background: #2195F20D;
+
+        .drive-icon {
+          // color:  var(--primary-color);
+          color: transparent;
+          font-size: 32px;
+          width: 32px;
+          height: 32px;
+          -webkit-text-stroke: 1.2px var(--primary-color);
+        }
+
+        span {
+          font-size: 20px;
+          font-weight: 500;
+          color: var(--primary-color);
+          margin-left: 10px;
+        }
+      }
+
+      mat-nav-list {
+        padding-top: 16px;
+        background: #2195F20D;
+
+        a {
+          height: 48px;
+          margin: 4px;
+          border-radius: 8px;
+          color: #616161;
+          width: 255px;
+          margin-left: 25px;
+
+          &.active {
+            background-color: #e3f2fd;
+            border-right: 5px solid var(--primary-color);
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+
+            span {
+              color: #161F22;
+
+            }
+          }
+
+          mat-icon {
+            margin-right: 12px;
+            color: #757575;
+          }
+
+          span {
+            font-size: 14px;
+            font-weight: 500;
+            color: #161F22CC;
+            ;
+          }
+        }
+      }
+    }
+
+    mat-sidenav-content {
+      background-color: #fafafa;
+
+      .content {
+        padding: 24px;
+        height: calc(100vh - 64px);
+        overflow: auto;
+      }
+    }
+  }
+}
+
+// Menu styles
+:host ::ng-deep {
+  .mat-mdc-menu-panel {
+    min-width: 200px !important;
+  }
+
+  .mat-mdc-menu-item {
+    height: 48px !important;
+
+    mat-icon {
+      margin-right: 12px;
+      color: #5f6368;
+    }
+  }
+}
+
+.mat-toolbar {
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0 24px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  .mat-icon-button {
+    color: rgba(0, 0, 0, 0.54);
+  }
+
+  .avatar-button {
+    margin-left: 8px;
+  }
+}
+

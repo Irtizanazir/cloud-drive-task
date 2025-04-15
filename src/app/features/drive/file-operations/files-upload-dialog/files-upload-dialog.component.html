@@ -1,0 +1,50 @@
+<div class="upload-container">
+  <h2>Upload files</h2>
+  <div class="upload-area" [class.dragging]="isDragging" (dragover)="onDragOver($event)" (click)="fileInput.click()"
+    (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" *ngIf="uploadFiles?.length === 0">
+
+    <mat-icon>cloud_upload</mat-icon>
+    <p><strong >Click to upload </strong>or drag and drop
+      Max size files (100 MB)</p>
+  </div>
+  <input #fileInput type="file" multiple (change)="onFileSelected($event)" style="display: none">
+  <div class="file-list" *ngIf="uploadFiles.length > 0">
+    <div class="file-list-header">
+      <span class="file-name">{{uploadFiles?.length}} {{uploadFiles?.length == 1 ? 'file' : 'files'}} - {{this.totalSize | fileSize}}</span>
+      <button mat-raised-button (click)="fileInput.click()">Add more</button>
+    </div>
+    <div class="file-item " *ngFor="let file of uploadFiles">
+      <!-- File icon and info -->
+      <div class="file-info">
+        <mat-icon [class.completed]="isCompleted(file.status)">
+          {{ isCompleted(file.status) ? 'check_circle' : 'description' }}
+        </mat-icon>
+        <div class="file-details">
+          <span class="file-name">{{ file.file.name }}</span>
+          <span class="file-size"> {{file.status === 'completed' ? '100% /' : ''}}  {{file.file.size | fileSize}}</span>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="file-progress">
+        <mat-progress-bar mode="determinate" [value]="file.progress"
+          [color]="file.status === 'error' ? 'warn' : file.status === 'completed' ? 'primary' : 'accent'">
+        </mat-progress-bar>
+      </div>
+
+      <!-- Remove button -->
+      <button mat-icon-button class="remove-btn" (click)="!uploading ? removeFile(file) : ''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+  <mat-dialog-actions align="end" class="mt-1 mb-1 mr-1">
+    <button mat-button [mat-dialog-close]="undefined">Cancel</button>
+    <button mat-raised-button  class="upload-button" [disabled]="uploadFiles.length == 0 || uploading"
+      (click)="uploadAllFiles()">
+      Upload and save
+    </button>
+  </mat-dialog-actions>
+</div>
