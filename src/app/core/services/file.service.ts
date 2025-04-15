@@ -115,13 +115,11 @@ export class FileService {
   }
 
   uploadFiles(formData: FormData, requests: UploadFileRequest[]): Observable<File[]> {
-    console.log(formData)
     return new Observable(observer => {
       const uploadObservables = requests.map((request, index) => {
         const id = this.generateId();
         const singleFormData = new FormData();
         const file = formData.getAll('files')[index];
-        console.log(file)
         if (file instanceof Blob) {
           singleFormData.append('file', file);
           singleFormData.append('id', id);

@@ -172,26 +172,7 @@ export class FileListComponent implements OnInit {
     }
   }
 
-  // applyFilter(): void {
-  //   const filterValue = this.searchQuery.toLowerCase().trim();
-    
-  //   if (!filterValue) {
-  //     this.loadCurrentFolder();
-  //     return;
-  //   }
-
-  //   const allItems = [...this.folders, ...this.files];
-  //   const filteredItems = allItems.filter(item => 
-  //     item.name.toLowerCase().includes(filterValue)
-  //   );
-
-  //   this.folders = filteredItems.filter(item => item.type.includes('folder'));
-  //   this.files = filteredItems.filter(item => !item.type.includes('folder'));
-  // }
-
-  // private convertFileListToArray(fileList: FileList | null): File[] {
-  //   return fileList ? Array.from(fileList) : [];
-  // }
+ 
 
   uploadFile(): void {
     const dialogRef = this.dialog.open(FilesUploadDialogComponent, {
@@ -200,7 +181,7 @@ export class FileListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result)
+
       if (result === true) {
         this.loadCurrentFolder();
       }
@@ -213,38 +194,7 @@ export class FileListComponent implements OnInit {
     }
   }
 
-  // handleFileUpload(files: File[]): void {
-  //   if (!files || files.length === 0) return;
-
-  //   const formData = new FormData();
-  //   const uploadRequests: UploadFileRequest[] = [];
-
-  //   files.forEach((file, index) => {
-  //     formData.append(`file${index}`, file);
-      
-  //     // Create upload request for each file
-  //     const request: UploadFileRequest = {
-  //       name: file.name,
-  //       type: file.type,
-  //       size: file.size,
-  //       parentId: this.currentFolder || undefined
-  //     };
-  //     uploadRequests.push(request);
-  //   });
-
-  //   // Upload files with progress tracking
-  //   this.fileService.uploadFiles(formData, uploadRequests).subscribe({
-  //     next: (response) => {
-  //           this.snackBar.open('Files uploaded successfully', 'Close', { duration: 3000 });
-  //           this.loadCurrentFolder();
-  //     },
-  //     error: (error) => {
-  //       console.error('Error uploading files:', error);
-  //       this.snackBar.open('Error uploading files', 'Close', { duration: 3000 });
-  //     }
-  //   });
-  // }
-
+  
   private loadCurrentFolder(): void {
     this.loading = true;
     const request = this.currentFolder ? 
@@ -253,7 +203,6 @@ export class FileListComponent implements OnInit {
 
     request.subscribe({
       next: (response) => {
-        console.log( this.files )
         this.files = response.items.filter(item => item.type && !item.type.includes('folder'));
         this.folders = response.items.filter(item => item.type && item.type.includes('folder'));
         this.totalItems = response.total;
@@ -269,16 +218,14 @@ export class FileListComponent implements OnInit {
   }
 
   openCreateFolderDialog(): void {
-    console.log('Opening create folder dialog with parentId:', this.currentFolder);
     const dialogRef = this.dialog.open(CreateFolderDialogComponent, {
       width: '400px',
       data: { parentId: this.currentFolder }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog closed with result:', result);
       if (result) {
-        console.log('Creating folder with name:', result, 'and parentId:', this.currentFolder);
+
         this.fileService.createFolder({
           name: result,
           parentId: this.currentFolder
@@ -318,19 +265,7 @@ export class FileListComponent implements OnInit {
       data: file
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result && result.users) {
-        // this.fileService.shareFile(file.id, result.users).subscribe({
-        //   next: () => {
-        //     this.snackBar.open('File shared successfully', 'Close', { duration: 3000 });
-        //   },
-        //   error: (error) => {
-        //     console.error('Error sharing file:', error);
-        //     this.snackBar.open('Error sharing file', 'Close', { duration: 3000 });
-        //   }
-        // });
-      }
-    });
+   
   }
   
   updateFileMetaData(file: FileModel): void {
@@ -425,43 +360,6 @@ export class FileListComponent implements OnInit {
         return 'insert_drive_file';
     }
   }
-
-  // toggleSearch(): void {
-  //   this.isSearchExpanded = !this.isSearchExpanded;
-  //   if (this.isSearchExpanded) {
-  //     setTimeout(() => {
-  //       this.searchInput.nativeElement.focus();
-  //     });
-  //   } else {
-  //     this.searchQuery = '';
-  //     this.loadCurrentFolder();
-  //   }
-  // }
-
-  // clearSearch(): void {
-  //   this.searchQuery = '';
-  //   this.loadCurrentFolder();
-  // }
-
-  // onFileSelected(event: Event): void {
-  //   const input = event.target as HTMLInputElement;
-  //   if (input.files && input.files.length > 0) {
-  //     const files = Array.from(input.files);
-  //     this.handleFileUpload(files);
-  //     if (input) {
-  //       input.value = '';
-  //     }
-  //   }
-  // }
-
-  // onFolderSelected(event: Event): void {
-  //   const input = event.target as HTMLInputElement;
-  //   if (input.files && input.files.length > 0) {
-  //     const files = Array.from(input.files);
-  //     this.handleFileUpload(files);
-  //   }
-  // }
-
 
   onPageChange(event: PageEvent): void {
     this.currentPage = event.pageIndex;

@@ -22,25 +22,11 @@
       </div>
     </div>
     <div class="header-actions">
-      <!-- Search -->
-      <!-- <div class="search-container" [class.expanded]="isSearchExpanded">
-        <button mat-icon-button class="search-toggle" (click)="toggleSearch()" matTooltip="Search">
-          <mat-icon>search</mat-icon>
-        </button>
-        <mat-form-field appearance="outline" class="search-field" *ngIf="isSearchExpanded">
-          <input matInput #searchInput placeholder="Search files and folders" [(ngModel)]="searchQuery"
-            (keyup)="applyFilter()">
-          <button mat-icon-button matSuffix (click)="clearSearch()">
-            <mat-icon>close</mat-icon>
-          </button>
-        </mat-form-field>
-      </div> -->
-
       <!-- View Options -->
       <div class="view-options">
-        <button mat-icon-button matTooltip="Search">
+        <!-- <button mat-icon-button matTooltip="Search">
           <mat-icon>search</mat-icon>
-        </button>
+        </button> -->
         <button mat-icon-button [class.active]="viewMode === 'grid'" (click)="setViewMode('grid')"
           matTooltip="Grid view">
           <mat-icon>grid_view</mat-icon>
@@ -177,39 +163,7 @@
           <!-- Grid View -->
           <mat-card *ngIf="viewMode === 'grid'" class="file-card">
             <mat-card-content>
-              <!-- <div class="file-preview" [ngClass]="file.type">
-                <mat-icon>{{getFileIcon(file)}}</mat-icon>
-              </div>
-              <div class="file-info">
-                <h3>{{file.name}}</h3>
-                <p class="metadata">
-                  {{file.size | fileSize}}
-                  <span class="separator">•</span>
-                  Last modified {{file.modifiedDate | date}}
-                </p>
-                <div class="tags" *ngIf="file.tags?.length">
-                  <span class="tag" *ngFor="let tag of file.tags">{{tag}}</span>
-                </div>
-              </div>
-              <div class="file-actions">
-                <button mat-icon-button [matMenuTriggerFor]="fileMenu">
-                  <mat-icon>more_vert</mat-icon>
-                </button>
-                <mat-menu #fileMenu="matMenu">
-                  <button mat-menu-item (click)="downloadFile(file)">
-                    <mat-icon>download</mat-icon>
-                    <span>Download</span>
-                  </button>
-                  <button mat-menu-item (click)="shareFile(file)">
-                    <mat-icon>share</mat-icon>
-                    <span>Share</span>
-                  </button>
-                  <button mat-menu-item (click)="deleteFile(file)" class="delete-action">
-                    <mat-icon>delete</mat-icon>
-                    <span>Delete</span>
-                  </button>
-                </mat-menu>
-              </div> -->
+             
               <div class="file-preview" [ngClass]="file.type">
                 <ng-container *ngIf="file.type.includes('image'); else fileIcon">
                   <img [src]="file.path ? apiUrl + file.path : ''" [alt]="file.name">
@@ -341,13 +295,9 @@
     </div>
   </div>
 
-  <!-- Loading State -->
+  <!-- Loading  -->
   <div *ngIf="loading" class="loading-overlay">
     <mat-spinner diameter="40"></mat-spinner>
   </div>
 
-  <!-- Add these input elements at the end of the template -->
-  <!-- <input #fileInput type="file" multiple style="display: none" (change)="onFileSelected($event)">
-  <input #folderInput type="file" multiple style="display: none" appDirectoryUpload
-    (filesSelected)="handleFileUpload($event)"> -->
 </mat-card>

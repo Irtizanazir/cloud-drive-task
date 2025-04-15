@@ -21,10 +21,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 // Shared Components
 import { FileSizePipe } from './pipes/file-size.pipe';
 import { WorkInProgressComponent } from './components/work-in-progress/work-in-progress.component';
+import { MaxFileSizeDirective } from './directives/max-file-size.directive';
 
 @NgModule({
   declarations: [
     FileSizePipe,
+    MaxFileSizeDirective
   ],
   imports: [
     CommonModule,
@@ -65,7 +67,8 @@ import { WorkInProgressComponent } from './components/work-in-progress/work-in-p
     MatSnackBarModule,
     MatDialogModule,
     FileSizePipe,
-    WorkInProgressComponent
+    WorkInProgressComponent,
+    MaxFileSizeDirective
   ]
 })
 export class SharedModule { } 

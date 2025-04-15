@@ -2,7 +2,6 @@ import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FileService, UploadFileRequest } from '../../../../core/services/file.service';
 import { UploadFile } from '../../../../core/models/file.model';
-import { catchError, finalize, interval, tap, throwError } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 type FileStatus = 'pending' | 'uploading' | 'completed' | 'error';
 @Component({
@@ -16,6 +15,7 @@ export class FilesUploadDialogComponent {
   isDragging = false;
   uploading = false;
   uploadFiles: UploadFile[] = [];
+  noSizeError: boolean=true;
   constructor(
     private fileService: FileService,
     private snackBar: MatSnackBar,
@@ -42,15 +42,13 @@ export class FilesUploadDialogComponent {
 
     const files = event.dataTransfer?.files;
     if (files && files.length > 0) {
-      // this.uploadFiles(Array.from(files));
+      this.addFiles(Array.from(files));
     }
   }
 
   onFileSelected(event: Event): void {
-    console.log(event)
     const input = event.target as HTMLInputElement;
     if (input.files?.length) {
-      console.log(Array.from(input.files))
       this.addFiles(Array.from(input.files));
     }
   }
@@ -120,60 +118,13 @@ async uploadAllFiles(): Promise<void> {
   private updateTotalSize(): void {
     this.totalSize =+ this.uploadFiles.reduce((total, file) => total + file.file.size, 0);
   }
-  getStatusText(upload: UploadFile): string {
-    switch (upload.status) {
-      case 'pending': return 'Waiting to upload...';
-      case 'uploading': return `${upload.progress}%`;
-      case 'completed': return 'Upload complete';
-      case 'error': return upload.error || 'Upload failed';
-      default: return '';
-    }
-  }
-  // private startUpload(upload: UploadFile): void {
-  //   upload.status = 'uploading';
-    
-  //   this.uploadService.uploadFile(upload.file,  undefined).subscribe({
-  //     // this.data.parentId ||
-  //     next: (event) => {
-  //       if (event.type === HttpEventType.UploadProgress && event.total) {
-  //         upload.progress = Math.round(100 * event.loaded / event.total);
-  //       } else if (event.type === HttpEventType.Response) {
-  //         upload.status = 'completed';
-  //         upload.progress = 100;
-  //         upload.fileNode = event.body ?? undefined;
-  //         if (event.body) {
-  //           this.completedUploads.push(event.body);
-  //         }
-  //         console.log('Upload completed:', upload); // Debug log
-  //       }
-  //     },
-  //     error: (error) => {
-  //       upload.status = 'error';
-  //       upload.error = error.message || 'Upload failed';
-  //       console.error('Upload error:', error);
-  //     }
-  //   });
-  // }
+
   isReadyToSave(): boolean {
     const ready = this.uploadFiles.some(file => file.status === 'completed');
-    console.log('Ready to save:', ready, this.uploadFiles); // Debug log
     return ready;
   }
 
-  isPreviewable(file: File): boolean {
-    return file.type.startsWith('image/') || file.type === 'application/pdf';
-  }
   
-  // addMoreFiles(): void {
-  //   this.fileInput.click();
-  //   this.fileInput.onchange = () => {
-  //     if (this.fileInput.files) {
-  //       this.addFiles(Array.from(this.fileInput.files));
-  //       this.fileInput.value = ''; // Reset input
-  //     }
-  //   };
-  // }
-
   removeFile(file: UploadFile): void {
     const index = this.uploadFiles.indexOf(file);
     if (index > -1) {
@@ -183,38 +134,7 @@ async uploadAllFiles(): Promise<void> {
     
   }
 
-  // isAllCompleted(): boolean {
-  //   return this.uploadFiles.length > 0 && 
-  //          this.uploadFiles.every(f => f.status === 'completed');
-  // }
-
-  // hasCompletedUploads(): boolean {
-  //   // return this.completedUploads.length > 0;
-  //   return true;
-  // }
-
-  // onCancel(): void {
-  //   this.dialogRef.close();
-  // }
-
-  onSave(): void {
-    // this.dialogRef.close(this.completedUploads);
-  }
-  // previewFile(upload: UploadFile): void {
-  //   if (!this.isPreviewable(upload.file)) return;
-
-  //   // this.dialog.open(FilePreviewComponent, {
-  //   //   data: {
-  //   //     file: upload.file,
-  //   //     title: upload.file.name
-  //   //   },
-  //   //   maxWidth: '100vw',
-  //   //   maxHeight: '100vh',
-  //   //   height: '90vh',
-  //   //   width: '90vw',
-  //   //   panelClass: 'file-preview-dialog'
-  //   // });
-  // }
+ 
   getFileIcon(file: File): string {
     if (file.type.startsWith('image/')) return 'image';
     if (file.type.startsWith('video/')) return 'movie';
@@ -240,19 +160,19 @@ async uploadAllFiles(): Promise<void> {
     return status === 'error';
   }
 
-  getProgressBarColor(status: FileStatus): 'warn' | 'primary' {
-    return this.isError(status) ? 'warn' : 'primary';
-  }
 
-  getProgressBarMode(status: FileStatus): 'determinate' | 'indeterminate' {
-    return this.isUploading(status) ? 'determinate' : 'indeterminate';
+  onFileTooLarge(files: File[]) {
+    this.snackBar.open(
+      `These files exceed 100 MB:\n${files.map(f => f.name).join(', ')}`,
+      'Close',
+      { duration: 3000 }
+    );
+    this.uploadFiles = this.uploadFiles.filter((uploadFile: UploadFile) =>
+      !files.some(file =>
+        file.name === uploadFile.file.name && file.size === uploadFile.file.size
+      )
+    );
+    
   }
-  // formatFileSize(bytes: number): string {
-  //   if (bytes === 0) return '0 B';
-  //   const k = 1024;
-  //   const sizes = ['B', 'KB', 'MB', 'GB'];
-  //   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  //   return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
-  // }
-
+  
 } 

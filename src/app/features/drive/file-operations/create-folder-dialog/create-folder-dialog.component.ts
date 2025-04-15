@@ -62,7 +62,6 @@ export class CreateFolderDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-console.log(this.data)
   }
 
   onSubmit(): void {
