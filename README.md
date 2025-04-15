@@ -1,27 +1,73 @@
-# CloudDrive
+# Cloud Drive Application
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.15.
+A modern web-based file management system built with Angular 17 and Node.js.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- File upload and download
+- Folder creation and management
+- File metadata editing
+- Keyboard navigation
+- Accessibility support
+- Modern Material Design UI
 
-## Code scaffolding
+## Prerequisites
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+- Angular CLI (v17)
 
-## Build
+## Installation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Clone the repository:
+```bash
+git clone 
+cd cloud-drive-task
+```
 
-## Running unit tests
+2. Install dependencies:
+```bash
+npm install
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Running the Application
 
-## Running end-to-end tests
+1. Start the backend server:
+```bash
+node server.js
+```
+The server will run on http://localhost:3000
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+2. In a new terminal, start the Angular application:
+```bash
+ng serve
+```
+The application will be available at http://localhost:4200
 
-## Further help
+## Development
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Backend server runs on port 3000
+- Frontend development server runs on port 4200
+- File storage is in the `storage/` directory
+- Metadata is stored in `db.json`
+
+## Project Structure
+
+```
+cloud-drive/
+├── src/                    # Angular source code
+│   ├── app/
+│   │   ├── core/          # Core functionality
+│   │   ├── features/      # Feature modules
+│   │   └── shared/        # Shared components
+│   ├── assets/
+│   └── environments/
+├── server.js              # Backend server
+├── db.json               # Data storage
+└── storage/             # File storage
+```
+
+## Documentation
+
+For detailed documentation, please refer to [DOCUMENTATION.md](DOCUMENTATION.md)
+
