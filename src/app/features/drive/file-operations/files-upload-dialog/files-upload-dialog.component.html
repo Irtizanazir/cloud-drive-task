@@ -10,7 +10,7 @@
   <input #fileInput type="file"  [appMaxFileSize]="100" multiple  (fileSizeExceeded)="onFileTooLarge($event)" (change)="onFileSelected($event)" style="display: none">
   <div class="file-list" *ngIf="uploadFiles.length > 0">
     <div class="file-list-header">
-      <span class="file-name">{{uploadFiles?.length}} {{uploadFiles?.length == 1 ? 'file' : 'files'}} - {{this.totalSize | fileSize}}</span>
+      <span class="file-name">{{uploadFiles.length}} {{uploadFiles.length == 1 ? 'file' : 'files'}} - {{this.totalSize | fileSize}}</span>
       <button mat-raised-button (click)="fileInput.click()">Add more</button>
     </div>
     <div class="file-item " *ngFor="let file of uploadFiles">
