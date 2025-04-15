@@ -40,3 +40,7 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# SSH Keys
+github_ssh_key
+github_ssh_key.pub
